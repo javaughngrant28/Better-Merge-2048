@@ -19,6 +19,12 @@ local function setCollisions(character: Model)
 end
 
 local function onCharacterAdded(character: Model)
+    task.wait(1)
+    for _, part: Part in pairs(character:GetChildren()) do
+        if part:IsA("BasePart") then
+            part.CustomPhysicalProperties = PhysicalProperties.new(8, 0.5, 1,0.3,1)
+        end
+    end
     setCollisions(character)
     Hitbox.Create(character)
 end
