@@ -45,7 +45,6 @@ local function StartSpawnTime()
         task.cancel(TimerThread)
     end
 
-    print('Run')
     TimerThread = task.spawn(function()
         SpawnTime = tick()
 
@@ -54,7 +53,6 @@ local function StartSpawnTime()
             JustSpawned = (tick() - SpawnTime) < 30
         end
 
-        print('End')
     end)
 end
 
