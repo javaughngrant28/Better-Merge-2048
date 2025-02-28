@@ -2,31 +2,19 @@
 local Players = game:GetService("Players")
 
 local MaidModule = require(game.ReplicatedStorage.Shared.Modules.Maid)
-local SpawnCharacter = require(game.ServerScriptService.Components.SpawnCharacter)
-local Hitbox = require(game.ServerScriptService.Modules.CharacterHitbox)
+local CharacterSetup = require(game.ServerScriptService.Modules.CharacterSetup)
 
 local PlayerAPI = require(game.ServerScriptService.Services.Players.PlayerAPI)
-local FunctionUtil = require(game.ReplicatedStorage.Shared.Utils.FunctionUtil)
 
 local PLayerLoadedSignal = PlayerAPI.GetPlayerLoadedSignal()
 
 
 
 
-local function setCollisions(character: Model)
-    if not character then return end
-    FunctionUtil.SetCollisionGroup(character,'Char')
-end
+
 
 local function onCharacterAdded(character: Model)
-    task.wait(1)
-    for _, part: Part in pairs(character:GetChildren()) do
-        if part:IsA("BasePart") then
-            part.CustomPhysicalProperties = PhysicalProperties.new(8, 0.5, 1,0.3,1)
-        end
-    end
-    setCollisions(character)
-    Hitbox.Create(character)
+    CharacterSetup.Fire(character)
 end
 
 local function onPlayerAdded(player: Player)
@@ -34,6 +22,7 @@ local function onPlayerAdded(player: Player)
     if not playerLoaded then return end
 
     player.CharacterAdded:Connect(onCharacterAdded)
+    player.CharacterAppearanceLoaded:Connect(onCharacterAdded)
 
     PLayerLoadedSignal:Fire(player)
 end

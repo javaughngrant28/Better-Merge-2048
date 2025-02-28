@@ -19,7 +19,6 @@ local function FireCallbacks(eventType: string, character: Model)
 end
 
 local function OnCharacterAdded(character: Model)
-	print('Spawn')
 	FireCallbacks("Spawn", character)
 
 	if character:IsDescendantOf(workspace) then
