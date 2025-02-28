@@ -8,7 +8,7 @@ end
 local function IncressCharacterMass(character: Model)
     for _, part: Part in pairs(character:GetChildren()) do
         if part:IsA("BasePart") then
-            part.CustomPhysicalProperties = PhysicalProperties.new(8, 0.5, 1,0.3,1)
+            part.CustomPhysicalProperties = PhysicalProperties.new(20, 0.5, 1,0.3,1)
         end
     end
 end

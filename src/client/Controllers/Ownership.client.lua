@@ -50,7 +50,7 @@ local function StartSpawnTime()
 
         while JustSpawned do
             task.wait(1)
-            JustSpawned = (tick() - SpawnTime) < 30
+            JustSpawned = (tick() - SpawnTime) < 60
         end
 
     end)
