@@ -22,6 +22,7 @@ local debounceTime = 0.4
 local function ConnnectToTouchEvent(slime: Model)
     if not JustSpawned then return end
     local hitbox = slime.PrimaryPart
+    if not hitbox then return end
     
     Maid[slime] = hitbox.Touched:Connect(function(hit: Part)
         if not player.Character then return end

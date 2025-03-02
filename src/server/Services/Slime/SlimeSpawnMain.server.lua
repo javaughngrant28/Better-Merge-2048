@@ -3,6 +3,7 @@ local SpawnFolder = game.Workspace.Slimes
 local SpawnPart = game.ReplicatedStorage.Spawn
 
 local RandomChance = require(game.ReplicatedStorage.Shared.Modules.RandomChance)
+local SlimeAPI = require(game.ServerScriptService.Services.Slime.SlimeAPI)
 
 local Slimes:  {Model} = {}
 local Max = 20
@@ -26,14 +27,15 @@ local function GetCFrameFormPart(part: Part): CFrame
         return CFrame.new(position + randomOffset)
 end
 
-
-local function SpawnSlime(value: number)
-    print(value)
+local function Create(value: number): Model
     local slimeClone = Slimes[value]:Clone()
     slimeClone.Parent = SpawnFolder
+    return slimeClone
+end
 
+local function SpawnSlime(value: number)
+    local slimeClone = Create(value)
     local spawnCFrame = GetCFrameFormPart(SpawnPart) :: CFrame
-
     task.defer(workspace.PivotTo, slimeClone, spawnCFrame)
 end
 
@@ -44,6 +46,17 @@ local function BatchSpawn(number)
     end
 end
 
+local function SpawnAtPosition(value: number, position: Vector3)
+    if value > #Slimes then return end
+
+    local slime = Create(value)
+    local spawnCFrame = CFrame.new(position)
+    task.defer(workspace.PivotTo, slime, spawnCFrame)
+
+    if #SpawnFolder:GetChildren() < Max then
+        BatchSpawn(5)
+    end 
+end
 
 for _, SlimeModel: Model in game.ReplicatedStorage.Assets.Slimes:GetChildren() do
     local attributes = SlimeModel:GetAttributes()
@@ -55,5 +68,8 @@ for _, SlimeModel: Model in game.ReplicatedStorage.Assets.Slimes:GetChildren() d
 
     Slimes[value] = SlimeModel
 end
+
+local CreateSlimeSignal = SlimeAPI._GetSlimeAPI()
+CreateSlimeSignal:Connect(SpawnAtPosition)
 
 BatchSpawn(Max)
