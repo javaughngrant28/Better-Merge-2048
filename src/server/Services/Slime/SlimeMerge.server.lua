@@ -7,13 +7,16 @@ local Maid: MaidModule.Maid = MaidModule.new()
 local SlimeFolder: Folder = game.Workspace.Slimes
 
 local function Merge(slime1: Model, slime2: Model, value: number)
+    if not slime2.PrimaryPart then return end
+    local slime2Position: Vector3 = slime2.PrimaryPart.CFrame.Position
+
     if not slime1 or not slime1.Parent or not slime1.PrimaryPart then return end
     slime2:Destroy()
 
     local slime1Position: Vector3 = slime1.PrimaryPart.CFrame.Position
     slime1:Destroy()
 
-    SlimeAPI.CreateSlimeAt(value + 1, slime1Position + Vector3.new(0,4,0))
+    SlimeAPI.CreateSlimeAt(value + 1, (slime1Position + slime2Position) / 2)
 end
 
 local function Connect(slime: Model)
