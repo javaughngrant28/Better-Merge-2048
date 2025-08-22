@@ -1,0 +1,62 @@
+{
+  "name": "Template-RBX",
+  "tree": {
+    "$className": "DataModel",
+
+   "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "Shared": {
+        "$className": "Folder",
+        "$path": "src/shared"
+      },
+      "Events": {
+        "$className": "Folder",
+        "GENERAL": {
+          "$className":"RemoteEvent"
+        },
+        "$ignoreUnknownInstances": true
+      }
+
+    },
+
+    "ServerScriptService": {
+      "$className": "ServerScriptService",
+      "$path": "src/server"
+    },
+
+    "ServerStorage": {
+      "$className": "ServerStorage",
+      "Libraries":{
+        "$path": "src/libraries",
+        "$className": "Folder"
+      },
+       "$ignoreUnknownInstances": true
+    },
+
+    "StarterGui":{
+      "$className": "StarterGui",
+      "Interface":{
+        "$path": "src/interface",
+        "$className":"Folder"
+      },
+      "$ignoreUnknownInstances": true
+    },
+    
+    "StarterPlayer": {
+      "$className": "StarterPlayer",
+      "StarterPlayerScripts": {
+        "Client": {
+          "$className": "Folder",
+          "$path": "src/client"
+        },
+      "$ignoreUnknownInstances": true
+      }
+    },
+    
+    "SoundService": {
+      "$properties": {
+        "RespectFilteringEnabled": true
+      }
+    }
+  }
+}
